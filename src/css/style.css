@@ -933,6 +933,28 @@ header .nav-menu .nav-icons svg {
   margin: 0;
 }
 
+.add-to-cart-btn {
+  background-color: #FF3D00;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e63500;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 61, 0, 0.3);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
+}
+
 .cart-table-container {
   margin-top: 60px;
 }

@@ -269,3 +269,64 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Cart functionality
+function getCart() {
+  const cart = localStorage.getItem('cart');
+  return cart ? JSON.parse(cart) : [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart() {
+  const selectedSize = document.querySelector('.size p.active');
+  const selectedColor = document.querySelector('.color .circle.active');
+  const quantity = parseInt(document.querySelector('.count').value);
+  
+  if (!selectedSize || !selectedColor) {
+    alert('Please select size and color');
+    return;
+  }
+  
+  const product = {
+    id: Date.now(),
+    name: 'Biker Hoodie',
+    price: 24.00,
+    size: selectedSize.textContent,
+    color: window.getComputedStyle(selectedColor).backgroundColor,
+    quantity: quantity,
+    image: '../img/flower.jpg'
+  };
+  
+  const cart = getCart();
+  cart.push(product);
+  saveCart(cart);
+  
+  alert('Product added to cart!');
+}
+
+function removeFromCart(productId) {
+  let cart = getCart();
+  cart = cart.filter(item => item.id !== productId);
+  saveCart(cart);
+  renderCart();
+}
+
+function updateQuantity(productId, newQuantity) {
+  if (newQuantity < 1) return;
+  
+  let cart = getCart();
+  const product = cart.find(item => item.id === productId);
+  if (product) {
+    product.quantity = newQuantity;
+    saveCart(cart);
+    renderCart();
+  }
+}
+
+function calculateTotal() {
+  const cart = getCart();
+  return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
